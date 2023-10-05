@@ -1,0 +1,52 @@
+<html>
+<body>
+
+    <h1>JS For Beginners</h1>
+    <form id="user-form">
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" required>
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required>
+      <button type="submit">Submit</button>
+    </form>
+
+    <div id="user-list">
+      <h2>User List</h2>
+      <ul id="users"></ul>
+    </div>
+
+    <script>
+      const form = document.getElementById("user-form");
+      const userList = document.getElementById("users");
+      form.addEventListener("submit", function(event) {
+        event.preventDefault();
+        const name = document.getElementById("name").value;
+        const email = document.getElementById("email").value;
+        var user = {
+          name: name,
+          email: email
+        };
+        var userString = JSON.stringify(user);
+        localStorage.setItem("user", userString);
+        alert("Your data has been saved in local storage!");
+
+        var li = document.createElement("li");
+        li.textContent = name + " (" + email + ")";
+        
+        var btn = document.createElement("button");
+        btn.textContent = "Delete";
+
+        li.appendChild(btn);
+
+        btn.addEventListener("click", function() {
+          userList.removeChild(li);
+          localStorage.removeItem("user");
+          alert("Your data has been deleted from local storage!");
+        });
+
+        userList.appendChild(li);
+
+      });
+    </script>
+  </body>
+  </html>
